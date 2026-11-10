@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lớp học</title>
+  <style>html,body,#meet{margin:0;height:100%}</style>
+</head>
+<body>
+  <div id="meet"></div>
+  <script src="https://8x8.vc/YOUR_APP_ID/external_api.js"></script>
+  <script>
+    new JitsiMeetExternalAPI("8x8.vc", {
+      roomName: "YOUR_APP_ID/LopHoc",
+      parentNode: document.querySelector("#meet"),
+      jwt: "YOUR_JWT"
+    });
+  </script>
+</body>
+</html>
