@@ -47,6 +47,15 @@
   }
   ol b{color:var(--text)}
   .foot{margin-top:18px;font-size:12px;color:var(--muted)}
+  p.sub .d{display:block;font-weight:600;color:var(--text)}
+  p.sub .t{display:block;font-size:28px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;margin-top:4px}
+  .credit{
+    position:fixed;right:12px;bottom:10px;
+    font-size:12px;color:#fff;background:rgba(0,0,0,.45);
+    padding:5px 10px;border-radius:999px;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  }
+  body{padding-bottom:56px}
 </style>
 </head>
 <body>
@@ -55,7 +64,10 @@
       <svg viewBox="0 0 24 24"><path d="M15 8v8H5V8h10m1-2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4V7a1 1 0 0 0-1-1z"/></svg>
     </div>
     <h1>Lớp học trực tuyến</h1>
-    <p class="sub">Khi đến giờ học, bấm nút bên dưới để vào phòng họp.</p>
+    <p class="sub" aria-live="off">
+      <span id="date" class="d">&nbsp;</span>
+      <span id="time" class="t">&nbsp;</span>
+    </p>
 
     <a class="join" href="hop.html">Vào họp</a>
 
@@ -66,5 +78,26 @@
     </ol>
     <div class="foot">Nếu không vào được, hãy thử mở bằng Chrome hoặc Edge.</div>
   </main>
+
+  <div class="credit">Được tạo bởi Thuận Huỳnh</div>
+
+  <script>
+    (function () {
+      var elDate = document.getElementById("date");
+      var elTime = document.getElementById("time");
+      var days = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+      function pad(n) { return n < 10 ? "0" + n : "" + n; }
+      function tick() {
+        var d = new Date();
+        // Giờ Việt Nam (UTC+7), không phụ thuộc múi giờ máy người xem
+        var vn = new Date(d.getTime() + d.getTimezoneOffset() * 60000 + 7 * 3600000);
+        elDate.textContent = days[vn.getDay()] + ", ngày " + vn.getDate() + " tháng " + (vn.getMonth() + 1) +
+          " năm " + vn.getFullYear();
+        elTime.textContent = pad(vn.getHours()) + ":" + pad(vn.getMinutes()) + ":" + pad(vn.getSeconds());
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>
